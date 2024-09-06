@@ -9,7 +9,6 @@ spec:
   selector:
     app: nginx 
   ports:
-    - protocol: TCP
-      port: 2024 
+    - port: 2024 
       targetPort: 80 
   type: ClusterIP 
