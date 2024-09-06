@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hungth-project
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hungth-statefulset
+  namespace: hungth-project
+spec:
+  serviceName: "demo-statefulset"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hungthprojectdb
+  template:
+    metadata:
+      labels:
+        app: hungthprojectdb
+    spec:
+      containers:
+      - name: mariadb
+        image: mariadb:latest
+        ports:
+        - containerPort: 3306
+          name: hungthdb
+        volumeMounts:
+        - name: hungthdb-storage
+          mountPath: /var/lib/hungthdb
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+#use case for RabbitMQ, database          
+

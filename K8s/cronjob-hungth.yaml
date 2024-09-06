@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hungth-cronjob
+  namespace: hungth-project
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: demo-cronjob
+        spec:
+          containers:
+          - name: hungth-cronjob
+            image: busybox:latest
+            command: ["echo", "Hello, HUNGTH!!!"]
+          restartPolicy: Never
